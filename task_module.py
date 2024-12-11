@@ -87,7 +87,7 @@ class Task: #This class a worst case runtime of O(n) for a strip() operation per
             if self.__validate_date(completed): #validates that a user defined completion date as valid
                 return completed
             else:
-                print(f"You did not enter a correct completion date, you must use MM/DD/YYYY format.") #When an error occurs, defaut the value back to None and display a message
+                print(f"You did not enter a correct completion date, you must use MM/DD/YYYY format, the default will be None.") #When an error occurs, defaut the value back to None and display a message
                 return None #leave the default set to none
             
     def validate_due_date(self, due_date):
@@ -98,7 +98,7 @@ class Task: #This class a worst case runtime of O(n) for a strip() operation per
             if self.__validate_date(due_date): #validates a user defined due date as valid
                 return due_date
             else:
-                print("You did not enter a correct due date, you must use MM/DD/YYYY format.")
+                print("You did not enter a correct due date, you must use MM/DD/YYYY format, the default will revert to None.")
                 return None #When an error occurs, defaut the value back to None and display a message
     
     def validate_priority(self, priority):
@@ -110,6 +110,9 @@ class Task: #This class a worst case runtime of O(n) for a strip() operation per
                 return 2
             elif priority == 3:
                 return 3
+            else:
+                print("Please enter priority as an integer of either 1, 2, or 3. The default will be set to 1.")
+                return 1
         else: #if the user attempts to define a priority that is not valid for any reason, set the default to 1
             print("Please enter priority as an integer of either 1, 2, or 3. The default will be set to 1.")
             return 1

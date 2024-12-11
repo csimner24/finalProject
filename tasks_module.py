@@ -34,6 +34,7 @@ class Tasks:
     
     def add_tasks(self, name, priority=1, due_date= None): #set default parameters for a task including priority and due date
         """This method is used to create a task, it inherets functionality from the Task class and returns the task object created, with applicable validation applied."""
+        name = name.strip()
         task = t.Task(name, priority, due_date)
         return task
     
@@ -65,7 +66,7 @@ class Tasks:
                 task_word_sets.append((task, task_words)) #append the task and words to the list
     
         matching_tasks = [] #initailize an empty list for matching tasks
-        query_terms = set(term.lower() for term in search)  # Preprocess query terms to reduce complexity (O(n))
+        query_terms = set(term.strip().lower() for term in search)  # Preprocess query terms to reduce complexity (O(n))
 
         for task, task_words in task_word_sets:  # Loop over all tasks (N tasks)
             if any(any(term in word for term in query_terms) for word in task_words):  # O(N^2) for the set size and number of workds per task > Check for substring match in the task words
@@ -87,6 +88,7 @@ class Tasks:
             then it generates a completed timestamp in a MM/DD/YYYY format as well as a longer format for the report display. It does not use the Task __validate_completed method since the 
             completion date is abstracted from the user. A child attribute called Raw Completed is also created which is used in the UI. 
             The method returns True or False based on if the unique ID match can be found. """
+        task_id = task_id.replace(" ", "").strip()
         for task in self.tasks:
             if task.unique_id == task_id: #check for an ID match
                 current_date = datetime.now()
@@ -103,6 +105,7 @@ class Tasks:
     
     def list_delete(self, task_id):
         """This method functions to remove a task from the task list, it matches the ID specified, removes the task from the list, and rewrites the todo list. It returns True or False depending on if the deletion suceeds."""
+        task_id = task_id.replace(" ", "").strip() #prevent errors from spaces at the front, end, or in between
         for task in self.tasks:
             if task.unique_id == task_id: #check for an ID match
                 self.tasks.remove(task) #access the tasks list and remove the task from the list
@@ -132,6 +135,8 @@ class Tasks:
     def update_due_date(self, task_id, due_date): #pass in a task unique ID and due date
         """This method is used to update the date of an existing task. It takes a task ID and a valid date in MM/DD/YYYY and updates the task date if the unique ID exists. 
             The function returns True or False depending on if the unique ID exists"""
+        task_id = task_id.replace(" ", "").strip() #prevent errors from strings with white space at the front or end or in between
+        due_date = due_date.replace(" ", "").strip()
         for task in self.tasks:
             if task.unique_id == task_id:
                 valid_date = task.validate_due_date(due_date) #use the Task class method to validate the provided date or return None
@@ -145,6 +150,7 @@ class Tasks:
     def update_priority(self, task_id, new_priority):
         """This method is used to update the priority of an existing task. It takes a task ID and the requested priority, validates the priority, and then overwrites the task object if the user's choice is valid.
             If the user attempts to pass in an invalid priority like 9 then the priority will not be updated. The function returns True or False depending on if the task ID exists. """
+        task_id = task_id.replace(" ", "").strip()
         for task in self.tasks:
             if task.unique_id == task_id: #identify a matching task ID
                 check_priority = task.validate_priority(new_priority) #check to see if the proposed ID is valid
