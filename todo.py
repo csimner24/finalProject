@@ -136,6 +136,16 @@ def main():
 
     else:
         print("You did not call a valid operation, try -h for a list of valid operations") #print a statement when the file is run without a command to steer users
-
+        print("")
+        print("The following commands can be performed: ") #provide the user with a basic tutorial if no arguments are passed
+        print("    Add a task with '--add'; takes 1 mandatory string argument and 2 optional arguments >> --add 'example name' --priority 3 --due 12/24/2024")
+        print("    List all of the non complete commands; takes zero arguments >> --list")
+        print("    List all of the non complete commands; takes zero arguments >> --list")
+        print("    Complete a task with '--done'; takes 1 mandatory argument unique_ID >> --done 1234aBcD")
+        print("    Remove a task with '--delete'; takes 1 mandatory argument unique_ID >> --delete 1234aBcD")
+        print("    Search for terms in the non-completed task names; takes a variable number of arguments to search >> --query eggs milk bread 'hello world'")
+        print("    Modify an existing task's due date with '--due'; takes 2 required arguments: the date and '--id {Task ID}' in either order >> --due 12/31/2024 --id 1234aBcD")
+        print("    Modify an existing task's priority with '--priority'; takes 2 required arguments: the priority and '--id {Task ID}' in either order >> --priority 2 --id 1234aBcD")
+        print("")
 if __name__ == "__main__":
     main()

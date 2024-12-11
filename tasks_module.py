@@ -56,7 +56,7 @@ class Tasks:
     
     def list_query(self, search):#takes a list of strings as query terms 
         """This method is used to enable the search functionality of the Tasks class. It sacrifices poor runtime (O(N^3)) for highly effective substring search that handles case sensitivity.
-            I made this decision since the task list should never be more than a dozen or so objects, no one would have a todo list in the millions. The method returns the tasks that match the query. """
+            I made this decision since the task list should never be more than a dozen or so objects, no one would have a todo list with a million tasks. The method returns the tasks that match the query. """
         task_word_sets = [] #initialize an empty list for tasks and their sub words
 
         for task in self.tasks:  # Loop over all tasks (N tasks)
@@ -99,9 +99,7 @@ class Tasks:
                 self.pickle_tasks() #update the todo list by dumping our updated task to the pickle file. 
                 return True
         else:
-            return False #if the task ID could not be found, return false
-        
-                
+            return False #if the task ID could not be found, return false      
     
     def list_delete(self, task_id):
         """This method functions to remove a task from the task list, it matches the ID specified, removes the task from the list, and rewrites the todo list. It returns True or False depending on if the deletion suceeds."""
