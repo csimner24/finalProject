@@ -6,16 +6,15 @@ import task_module as t
 
 class Tasks:
     """A list of 'Task' objects."""
-    def __init__(self, pickle_file=".todo.pickle"):
+    def __init__(self):
         """Read pickled tasks file into a list."""
         self.tasks = []
-        self.pickle_file = pickle_file
         self.tasks = self.pickle_read()
     
     def pickle_read(self):
         """Read existing tasks from a pickle file if applicable."""
         try:
-            with open(self.pickle_file, "rb") as file:
+            with open(".todo.pickle", "rb") as file:
                 self.tasks = pickle.load(file)
         except FileNotFoundError:
             self.tasks = []
@@ -26,7 +25,7 @@ class Tasks:
     def pickle_tasks(self):
         """Write the list objects to a pickle file"""
         try:
-            with open(self.pickle_file, "wb") as file:
+            with open(".todo.pickle", "wb") as file:
                 pickle.dump(self.tasks, file)
         except Exception as e:
             print(f"Error while saving tasks: {e}")

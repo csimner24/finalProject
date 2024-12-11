@@ -20,9 +20,6 @@ def main():
     args = parser.parse_args()
 
     task_list = s.Tasks()
-    
-    #for task in task_list.tasks:
-    #    print(task)
 
     if args.add:
         task_priority = args.priority if args.priority is not None else 1
