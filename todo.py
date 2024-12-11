@@ -7,7 +7,7 @@ def main():
     """ All the real work driving the program!"""
     parser = argparse.ArgumentParser(description= "update the task list using a variety of commands such as --add, --done, --due, and --priority; where --due and --priority must include '--id'.")
     
-    parser.add_argument('--add', type= str, required= False, help= "add one task to your list by passing in a name that contains alphabet characters; takes arguments --priority and --due.")
+    parser.add_argument('--add', type= str, required= False, help= "add one task to your list by passing in a name that contains alphabet characters; takes a string and optional arguments --priority and --due.")
     
     parser.add_argument('--list', action='store_true', required= False, help="list all tasks that have not been completed, by due date then priority.")
     
@@ -40,6 +40,7 @@ def main():
             task_priority = int(task_priority) #covert the string to an integer
         except:
             task_priority = 1 #set the task priority to the default if an error is present with the user choice
+        
         new_task = task_list.add_tasks(name=args.add, priority=task_priority, due_date=args.due)
         task_list.tasks.append(new_task)
         print(f"Created task {new_task.unique_id}")
@@ -131,7 +132,7 @@ def main():
     
     elif args.id: # concurrently using --id with --due and --priority will trigger the first of either --due or --priority
         #provide the user some information on the --id argument
-        print("The --id command must be used with either '--due' or '--priority' to update either the due date or priority of a specific task ID; passing both will only trigger the first command included")
+        print("The --id command must be used with either '--due' or '--priority' to update the due date or priority of a specific task ID; passing both will only trigger the first command included")
 
     else:
         print("You did not call a valid operation, try -h for a list of valid operations") #print a statement when the file is run without a command to steer users
