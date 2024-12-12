@@ -9,6 +9,9 @@ import re
 import pickle
 from datetime import datetime
 import argparse
+import os
+home_dir = os.path.expanduser("~")
+pickle_file_path = os.path.join(home_dir, ".todo.pickle")
 
 class Task: #This class a worst case runtime of O(n) for a strip() operation performed in __validate_name, otherwise runtime is constant
     """Representation of a task, the following attributes and private/public methods are used to create task objects for a todo list. 
@@ -135,7 +138,7 @@ class Tasks:
     def pickle_read(self):
         """Read existing tasks from a pickle file if the pickle file exists, or leave the task list empty if the file does not exist and this there are no tasks."""
         try:
-            with open(".todo.pickle", "rb") as file: #loads a hidden file called 'todo' with the file type 'pickle'
+            with open(pickle_file_path, "rb") as file: #loads a hidden file called 'todo' with the file type 'pickle'
                 self.tasks = pickle.load(file)
         except FileNotFoundError: #accounts for a non existent task list at the begining
             self.tasks = []
@@ -146,7 +149,7 @@ class Tasks:
     def pickle_tasks(self):
         """Write a list of task objects to a pickle file"""
         try:
-            with open(".todo.pickle", "wb") as file: #this will overwrite the file every time it is called
+            with open(pickle_file_path, "wb") as file: #this will overwrite the file every time it is called
                 pickle.dump(self.tasks, file)
         except Exception as e:
             print(f"Error while saving tasks: {e}")
